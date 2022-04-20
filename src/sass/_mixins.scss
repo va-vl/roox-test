@@ -1,0 +1,33 @@
+@use './variables' as *;
+
+@mixin heading() {
+  font-size: $font-size-large;
+  font-weight: 700;
+}
+
+@mixin button {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: $border-radius;
+
+  color: $color-font-button;
+  background-color: $color-button;
+  font-size: $font-size-large;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background-color: $color-button-hover;
+  }
+
+  &:active {
+    background-color: $color-button-active;
+  }
+
+  &:disabled {
+    cursor: auto;
+    background-color: $color-button-disabled !important;
+  }
+}

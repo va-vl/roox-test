@@ -1,0 +1,37 @@
+$color-font-main: #000000;
+$color-font-light: #a3a3a3;
+$color-font-disabled: rgba($color-font-main, 0.3);
+$color-font-button: #ffffff;
+
+$color-background: #e5e5e5;
+$color-background-main: #ffffff;
+$color-background-aside: #bdbdbd;
+$color-background-card: #f3f3f3;
+$color-background-skeleton: lighten($color-font-light, 25%);
+
+$color-background-button: #4b51ef;
+$color-background-button-hover: darken($color-background-button, 10%);
+$color-background-button-active: darken($color-background-button, 20%);
+$color-background-button-disabled: #afafaf;
+$color-background-button-send: #52cf4f;
+$color-background-button-send-hover: darken($color-background-button-send, 10%);
+$color-background-button-send-active: darken(
+  $color-background-button-send,
+  20%
+);
+
+$color-link: $color-background-button;
+
+$color-form-border: #f3f3f3;
+$color-input-border: #d8d8d8;
+
+$color-error: red;
+
+$font-size: 11px;
+$font-size-large: 12px;
+$font-size-form: 10px;
+$font-size-form-label: 8px;
+$font-size-heading: 14px;
+
+$border-radius: 5px;
+$border-radius-large: 8px;

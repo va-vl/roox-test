@@ -1,0 +1,14 @@
+@use './sass/_variables' as *;
+
+.app {
+  display: grid;
+  width: 665px;
+  margin: 0 auto;
+  grid-template-columns: auto 1fr;
+  height: 100vh;
+}
+
+.aside {
+  background-color: $color-background-aside;
+  width: fit-content;
+}
