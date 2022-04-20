@@ -1,26 +1,19 @@
 import * as React from 'react';
 //
 import { API_ENDPOINT } from '@/constants';
-import type { ApiUserData, UserData } from '@/types';
-
-export enum RequestStatus {
-  Idle = 'idle',
-  Loading = 'loading',
-  Success = 'success',
-  Error = 'error',
-}
+import { ApiUserData, UserData, APIRequestStatus } from '@/types';
 
 type UserId = UserData['id'];
 
 type UsersData = {
   data: UserData[];
-  state: RequestStatus;
+  state: APIRequestStatus;
   error: null | string;
 };
 
 const UsersContextState = React.createContext<UsersData>({
   data: [],
-  state: RequestStatus.Idle,
+  state: APIRequestStatus.Idle,
   error: null,
 });
 
@@ -65,24 +58,26 @@ const mapResponseData = (user: ApiUserData): UserData => ({
 
 export const UsersDataProvider: React.FunctionComponent = ({ children }) => {
   const [data, setData] = React.useState<UserData[]>([]);
-  const [state, setState] = React.useState<RequestStatus>(RequestStatus.Idle);
+  const [state, setState] = React.useState<APIRequestStatus>(
+    APIRequestStatus.Idle,
+  );
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const fetchUsers = () => {
-      setState(RequestStatus.Loading);
+      setState(APIRequestStatus.Loading);
       fetch(API_ENDPOINT)
         .then((res) => res.json())
         .then((json: ApiUserData[]) => {
           const usersData = json.map(mapResponseData);
           setData(usersData);
-          setState(RequestStatus.Success);
+          setState(APIRequestStatus.Success);
           setError(null);
         })
         .catch((err) => {
           setData([]);
           setError(err);
-          setState(RequestStatus.Error);
+          setState(APIRequestStatus.Error);
         });
     };
     fetchUsers();

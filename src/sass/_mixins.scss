@@ -13,21 +13,21 @@
   border-radius: $border-radius;
 
   color: $color-font-button;
-  background-color: $color-button;
+  background-color: $color-background-button;
   font-size: $font-size-large;
 
   &:hover,
   &:focus {
     cursor: pointer;
-    background-color: $color-button-hover;
+    background-color: $color-background-button-hover;
   }
 
   &:active {
-    background-color: $color-button-active;
+    background-color: $color-background-button-active;
   }
 
   &:disabled {
     cursor: auto;
-    background-color: $color-button-disabled !important;
+    background-color: $color-background-button-disabled !important;
   }
 }

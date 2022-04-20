@@ -1,0 +1,32 @@
+@use '../../sass/_variables' as *;
+@use '../../sass/_mixins' as *;
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  @include heading;
+  text-align: center;
+}
+
+.image {
+  width: 30%;
+  max-width: 200px;
+  min-width: 150px;
+}
+
+.link {
+  @include button;
+  text-decoration: none;
+}
+
+.image,
+.link,
+.text {
+  margin: 15px 0;
+}

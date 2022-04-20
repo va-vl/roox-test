@@ -1,0 +1,5 @@
+@use '../../sass/_mixins' as *;
+
+.button {
+  @include button;
+}

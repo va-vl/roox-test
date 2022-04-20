@@ -1,3 +1,10 @@
+export enum APIRequestStatus {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Error = 'error',
+}
+
 export type ApiUserData = {
   id: string;
   name: string;
