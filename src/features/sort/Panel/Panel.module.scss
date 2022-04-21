@@ -1,0 +1,23 @@
+@use '../../../sass/_variables' as *;
+@use '../../../sass/mixins' as *;
+
+.nav {
+  padding-top: 30px;
+  margin-left: 20px;
+
+  * {
+    margin-bottom: 10px;
+  }
+}
+
+.button {
+  @include button;
+  width: fit-content;
+  display: block;
+  text-decoration: none;
+  padding: 5px 15px;
+}
+
+.heading {
+  @include heading;
+}

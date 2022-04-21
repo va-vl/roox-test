@@ -11,33 +11,33 @@ type UsersData = {
   error: null | string;
 };
 
-const UsersContextState = React.createContext<UsersData>({
+const DataContextState = React.createContext<UsersData>({
   data: [],
   state: APIRequestStatus.Idle,
   error: null,
 });
 
-export const useUsersContextState = () => {
-  const context = React.useContext(UsersContextState);
+export const useDataContextState = () => {
+  const context = React.useContext(DataContextState);
   if (context === undefined) {
-    throw new Error('useUsersDataContextState used outside of its Provider!');
+    throw new Error('useDataContextState used outside of its Provider!');
   }
   return context;
 };
 
 type UserUpdateDTO = Omit<UserData, 'id'>;
-type UsersDataUpdater = (id: UserData['id'], DTO: UserUpdateDTO) => void;
+type DataUpdater = (id: UserData['id'], DTO: UserUpdateDTO) => void;
 
-const UsersContextUpdater = React.createContext<UsersDataUpdater>(
+const DataContextUpdater = React.createContext<DataUpdater>(
   (_id: UserId, _updateDTO: UserUpdateDTO) => {
-    throw new Error('updateUserById not implemented!');
+    throw new Error('DataContextUpdater not implemented!');
   },
 );
 
-export const useUsersUpdateContext = () => {
-  const context = React.useContext(UsersContextUpdater);
+export const useDataContextUpdater = () => {
+  const context = React.useContext(DataContextUpdater);
   if (context === undefined) {
-    throw new Error('useUsersDataContext used outside of its Provider!');
+    throw new Error('useDataContextUpdater used outside of its Provider!');
   }
   return context;
 };
@@ -56,7 +56,7 @@ const mapResponseData = (user: ApiUserData): UserData => ({
   comment: '',
 });
 
-export const UsersDataProvider: React.FunctionComponent = ({ children }) => {
+export const DataProvider: React.FunctionComponent = ({ children }) => {
   const [data, setData] = React.useState<UserData[]>([]);
   const [state, setState] = React.useState<APIRequestStatus>(
     APIRequestStatus.Idle,
@@ -67,7 +67,12 @@ export const UsersDataProvider: React.FunctionComponent = ({ children }) => {
     const fetchUsers = () => {
       setState(APIRequestStatus.Loading);
       fetch(API_ENDPOINT)
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 200) {
+            return res.json();
+          }
+          throw new Error(res.statusText);
+        })
         .then((json: ApiUserData[]) => {
           const usersData = json.map(mapResponseData);
           setData(usersData);
@@ -105,10 +110,10 @@ export const UsersDataProvider: React.FunctionComponent = ({ children }) => {
   );
 
   return (
-    <UsersContextState.Provider value={contextValue}>
-      <UsersContextUpdater.Provider value={updateUserById}>
+    <DataContextState.Provider value={contextValue}>
+      <DataContextUpdater.Provider value={updateUserById}>
         {children}
-      </UsersContextUpdater.Provider>
-    </UsersContextState.Provider>
+      </DataContextUpdater.Provider>
+    </DataContextState.Provider>
   );
 };

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useUsersContextState, useUsersUpdateContext } from '@/providers';
+import { useDataContextState } from '@/providers';
 
-export const UserForm = () => {
-  const { data, error, state } = useUsersContextState();
+export const UserProfile = () => {
+  const { data, error, state } = useDataContextState();
 
   if (state === 'loading') {
     return <div>Loading</div>;

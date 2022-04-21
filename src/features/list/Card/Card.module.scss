@@ -1,0 +1,41 @@
+@use '../../../sass/_variables' as *;
+
+.card {
+  background-color: $color-background-card;
+  border-radius: $border-radius-large;
+  padding: 10px;
+}
+
+.paragraph {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.category {
+  color: $color-font-light;
+  margin-right: 7px;
+}
+
+.link {
+  margin-left: auto;
+  margin-right: 0;
+  text-decoration: none;
+  color: $color-link;
+  font-size: $font-size-large;
+  line-height: 0;
+
+  &:hover,
+  &:focus {
+    color: $color-link-hover;
+  }
+
+  &:active {
+    color: $color-link-active;
+  }
+}

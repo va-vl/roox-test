@@ -22,11 +22,12 @@
 
 .link {
   @include button;
+  padding: 5px 15px;
   text-decoration: none;
 }
 
 .image,
 .link,
 .text {
-  margin: 15px 0;
+  margin: 10px 0;
 }

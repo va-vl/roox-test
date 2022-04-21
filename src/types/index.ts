@@ -45,10 +45,6 @@ export type UserData = {
 
 export type SortState = 'company' | 'city';
 
-export type SortStateProp = {
-  [key: string]: SortState;
-};
-
 export type ProfileInput = Pick<
   UserData,
   | 'name'

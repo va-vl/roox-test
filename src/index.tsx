@@ -5,7 +5,7 @@ import 'normalize.css';
 //
 import { App } from './App';
 import { UsersList } from '@/features/list';
-import { UserForm } from '@/features/form';
+import { UserProfile } from '@/features/profile';
 import { NotFoundMessage } from '@/components';
 import './sass/style.scss';
 
@@ -14,7 +14,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<UsersList />} />
-        <Route path="/users/:id" element={<UserForm />} />
+        <Route path="/users/:id" element={<UserProfile />} />
         <Route path="*" element={<NotFoundMessage />} />
       </Route>
     </Routes>

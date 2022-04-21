@@ -1,1 +1,1 @@
-export * from './UsersProvider';
+export * from './DataProvider';

@@ -1,0 +1,27 @@
+@use '../../../sass/_variables' as *;
+@use '../../../sass/_mixins' as *;
+
+.content {
+  width: 100%;
+  padding-left: 31px;
+  padding-right: 62px;
+  padding-bottom: 62px;
+}
+
+.heading {
+  @include heading;
+  padding-top: 19px;
+  padding-bottom: 17px;
+}
+
+.item {
+  margin-bottom: 14px;
+
+  &:last-child {
+    margin-bottom: 10px;
+  }
+}
+
+.totals {
+  text-align: right;
+}
