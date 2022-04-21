@@ -1,7 +1,7 @@
 import * as React from 'react';
 //
 import { API_ENDPOINT } from '@/constants';
-import { ApiUserData, UserData, APIRequestStatus } from '@/types';
+import { ApiUserData, UserData, APIRequestStatus, UserInput } from '@/types';
 
 type DataStatus = {
   state: APIRequestStatus;
@@ -34,17 +34,16 @@ export const useDataContext = () => {
 };
 
 type UserId = UserData['id'];
-type UserUpdateDTO = Omit<UserData, 'id'>;
 type DataUpdater = {
   getUserById: (id: UserId) => UserData | undefined;
-  updateUserById: (id: UserId, DTO: UserUpdateDTO) => void;
+  updateUserById: (id: UserId, DTO: UserInput) => void;
 };
 
 const DataContextUpdater = React.createContext<DataUpdater>({
   getUserById(_id: UserId) {
     throw new Error('getUserById not implemented!');
   },
-  updateUserById(_id: UserId, _updateDTO: UserUpdateDTO) {
+  updateUserById(_id: UserId, _input: UserInput) {
     throw new Error('updateUserById not implemented!');
   },
 });
@@ -111,7 +110,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   );
 
   const updateUserById = React.useCallback(
-    (id: UserId, updateDTO: UserUpdateDTO) => {
+    (id: UserId, input: UserInput) => {
       const userIndex = data.findIndex((d) => d.id === id);
       if (userIndex === -1) {
         throw new Error('Trying to update a non-existing user');
@@ -119,7 +118,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
       const user = data[userIndex];
       setData([
         ...data.slice(0, userIndex),
-        { ...user, ...updateDTO },
+        { ...user, ...input },
         ...data.slice(userIndex + 1),
       ]);
     },

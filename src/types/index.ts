@@ -45,17 +45,6 @@ export type UserData = {
 
 export type SortState = 'company' | 'city';
 
-export type ProfileInput = Pick<
-  UserData,
-  | 'name'
-  | 'username'
-  | 'email'
-  | 'city'
-  | 'street'
-  | 'zipcode'
-  | 'phone'
-  | 'website'
-  | 'comment'
->;
+export type UserInput = Omit<UserData, 'id' | 'company'>;
 
 export type InputTypes = 'text' | 'tel' | 'email';

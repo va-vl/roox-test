@@ -1,0 +1,44 @@
+@use '../../../sass/_variables' as *;
+@use '../../../sass/_mixins' as *;
+
+.content {
+  padding-left: 36px;
+  padding-right: 41px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 13px;
+  padding-bottom: 10px;
+}
+
+.form {
+  margin: 0;
+}
+
+.fieldset {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid $color-form-border;
+  border-radius: $border-radius-large;
+}
+
+.button {
+  margin-left: auto;
+  padding: 6px 11px;
+
+  &_send {
+    background-color: $color-background-button-send;
+
+    &:hover,
+    &:focus {
+      background-color: $color-background-button-send-hover;
+    }
+
+    &:active {
+      background-color: $color-background-button-send-active;
+    }
+  }
+}

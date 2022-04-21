@@ -1,0 +1,36 @@
+@use '../../../sass/_variables' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.label {
+  color: $color-font-light;
+  font-size: $font-size-form-label;
+  margin-bottom: 3px;
+}
+
+.input,
+.textarea {
+  font-size: $font-size-form;
+  border: 1px solid $color-input-border;
+  padding: 5px;
+  border-radius: $border-radius-small;
+}
+
+.input {
+  &:invalid {
+    border: 1px solid $color-error;
+  }
+}
+
+.textarea {
+  min-height: 60px;
+  resize: vertical;
+}

@@ -11,6 +11,12 @@ html {
   font-family: 'Roboto', sans-serif;
   font-size: $font-size;
   background-color: $color-background;
+  overflow-y: scroll;
+
+  @supports (scrollbar-gutter: stable) {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
 }
 
 ul,
