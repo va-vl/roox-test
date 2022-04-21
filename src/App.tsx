@@ -15,7 +15,7 @@ export const App = () => {
 
   const handleSort = (sortState: SortState) => {
     if (sortState !== sort) {
-      setSort(sort);
+      setSort(sortState);
       setIsDirect(true);
     } else {
       setIsDirect(!isDirect);

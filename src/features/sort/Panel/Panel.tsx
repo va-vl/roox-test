@@ -8,26 +8,28 @@ type SortPanelProps = {
   sortFunc: (state: SortState) => void;
 };
 
-export const SortPanel: React.FunctionComponent<SortPanelProps> = ({
-  sortFunc,
-}) => {
-  const sortByCity = () => {
-    sortFunc('city');
-  };
+export const SortPanel: React.FunctionComponent<SortPanelProps> = React.memo(
+  ({ sortFunc }) => {
+    const sortByCity = () => {
+      sortFunc('city');
+    };
 
-  const sortByCompany = () => {
-    sortFunc('company');
-  };
+    const sortByCompany = () => {
+      sortFunc('company');
+    };
 
-  return (
-    <nav className={styles.nav}>
-      <h3 className={styles.heading}>Сортировка</h3>
-      <Link to="/" onClick={sortByCity} className={styles.button}>
-        По городу
-      </Link>
-      <Link to="/" onClick={sortByCompany} className={styles.button}>
-        По компании
-      </Link>
-    </nav>
-  );
-};
+    return (
+      <nav className={styles.nav}>
+        <h3 className={styles.heading}>Сортировка</h3>
+        <Link to="/" onClick={sortByCity} className={styles.button}>
+          По городу
+        </Link>
+        <Link to="/" onClick={sortByCompany} className={styles.button}>
+          По компании
+        </Link>
+      </nav>
+    );
+  },
+);
+
+SortPanel.displayName = 'SortPanel';
