@@ -1,11 +1,11 @@
 import * as React from 'react';
 //
-import type { ProfileInput, InputTypes } from '@/types';
+import type { UserInput, InputTypes } from '@/types';
 import styles from './Input.module.scss';
 
 type InputProps<ComponentType extends HTMLInputElement | HTMLTextAreaElement> =
   React.InputHTMLAttributes<ComponentType> & {
-    id: keyof ProfileInput;
+    id: keyof UserInput;
     label: string;
     type?: InputTypes;
   };

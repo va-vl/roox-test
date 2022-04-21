@@ -11,17 +11,30 @@ import styles from './App.module.scss';
 
 export const App = () => {
   const [sort, setSort] = React.useState<SortState>('city');
+  const [isDirect, setIsDirect] = React.useState(true);
+
+  const handleSort = (sortState: SortState) => {
+    if (sortState !== sort) {
+      setSort(sort);
+      setIsDirect(true);
+    } else {
+      setIsDirect(!isDirect);
+    }
+  };
 
   return (
     <BrowserRouter>
       <div className={styles.app}>
         <aside className={styles.aside}>
-          <SortPanel sortFunc={setSort} />
+          <SortPanel sortFunc={handleSort} />
         </aside>
         <div className={styles.content}>
           <DataProvider>
             <Routes>
-              <Route index element={<UsersList sort={sort} />} />
+              <Route
+                index
+                element={<UsersList sort={sort} isDirect={isDirect} />}
+              />
               <Route path="/users/:id" element={<UserProfile />} />
               <Route path="*" element={<NotFoundMessage />} />
             </Routes>

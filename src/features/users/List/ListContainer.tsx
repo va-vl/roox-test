@@ -7,10 +7,15 @@ import { UsersListSkeleton, UsersList, UsersListLayout } from './List';
 
 export const UsersListContainer: React.FunctionComponent<{
   sort: SortState;
-}> = ({ sort }) => {
+  isDirect: boolean;
+}> = ({ sort, isDirect }) => {
   const { error, state } = useDataStatusContext();
   const data = useDataContext();
-  const sortedData = [...data].sort((a, b) => a[sort].localeCompare(b[sort]));
+  const sortedData = [...data].sort((a, b) => {
+    return isDirect
+      ? a[sort].localeCompare(b[sort])
+      : b[sort].localeCompare(a[sort]);
+  });
 
   let content: React.ReactNode;
 
