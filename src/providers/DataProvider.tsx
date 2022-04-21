@@ -3,36 +3,51 @@ import * as React from 'react';
 import { API_ENDPOINT } from '@/constants';
 import { ApiUserData, UserData, APIRequestStatus } from '@/types';
 
-type UserId = UserData['id'];
-
-type UsersData = {
-  data: UserData[];
+type DataStatus = {
   state: APIRequestStatus;
   error: null | string;
 };
 
-const DataContextState = React.createContext<UsersData>({
-  data: [],
+const DataStatusContext = React.createContext<DataStatus>({
   state: APIRequestStatus.Idle,
   error: null,
 });
 
-export const useDataContextState = () => {
-  const context = React.useContext(DataContextState);
+export const useDataStatusContext = () => {
+  const context = React.useContext(DataStatusContext);
   if (context === undefined) {
-    throw new Error('useDataContextState used outside of its Provider!');
+    throw new Error('useDataStatusContext used outside of its Provider!');
   }
   return context;
 };
 
-type UserUpdateDTO = Omit<UserData, 'id'>;
-type DataUpdater = (id: UserData['id'], DTO: UserUpdateDTO) => void;
+type UsersData = UserData[];
 
-const DataContextUpdater = React.createContext<DataUpdater>(
-  (_id: UserId, _updateDTO: UserUpdateDTO) => {
-    throw new Error('DataContextUpdater not implemented!');
+const DataContext = React.createContext<UsersData>([]);
+
+export const useDataContext = () => {
+  const context = React.useContext(DataContext);
+  if (context === undefined) {
+    throw new Error('useDataContext used outside of its Provider!');
+  }
+  return context;
+};
+
+type UserId = UserData['id'];
+type UserUpdateDTO = Omit<UserData, 'id'>;
+type DataUpdater = {
+  getUserById: (id: UserId) => UserData | undefined;
+  updateUserById: (id: UserId, DTO: UserUpdateDTO) => void;
+};
+
+const DataContextUpdater = React.createContext<DataUpdater>({
+  getUserById(_id: UserId) {
+    throw new Error('getUserById not implemented!');
   },
-);
+  updateUserById(_id: UserId, _updateDTO: UserUpdateDTO) {
+    throw new Error('updateUserById not implemented!');
+  },
+});
 
 export const useDataContextUpdater = () => {
   const context = React.useContext(DataContextUpdater);
@@ -43,7 +58,7 @@ export const useDataContextUpdater = () => {
 };
 
 const mapResponseData = (user: ApiUserData): UserData => ({
-  id: user.id,
+  id: String(user.id),
   name: user.name,
   username: user.username,
   email: user.email,
@@ -88,6 +103,13 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     fetchUsers();
   }, []);
 
+  const getUserById = React.useCallback(
+    (id: UserId) => {
+      return data.filter((d) => d.id === id).pop();
+    },
+    [data],
+  );
+
   const updateUserById = React.useCallback(
     (id: UserId, updateDTO: UserUpdateDTO) => {
       const userIndex = data.findIndex((d) => d.id === id);
@@ -104,16 +126,28 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     [data],
   );
 
-  const contextValue = React.useMemo(
-    () => ({ data, state, error }),
-    [data, state, error],
+  const statusContextValue = React.useMemo(
+    () => ({ state, error }),
+    [state, error],
+  );
+
+  const dataContextValue = React.useMemo(() => data, [data]);
+
+  const updaterContextValue = React.useMemo(
+    () => ({
+      getUserById,
+      updateUserById,
+    }),
+    [getUserById, updateUserById],
   );
 
   return (
-    <DataContextState.Provider value={contextValue}>
-      <DataContextUpdater.Provider value={updateUserById}>
-        {children}
-      </DataContextUpdater.Provider>
-    </DataContextState.Provider>
+    <DataStatusContext.Provider value={statusContextValue}>
+      <DataContext.Provider value={dataContextValue}>
+        <DataContextUpdater.Provider value={updaterContextValue}>
+          {children}
+        </DataContextUpdater.Provider>
+      </DataContext.Provider>
+    </DataStatusContext.Provider>
   );
 };

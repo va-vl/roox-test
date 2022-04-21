@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { SkeletonShape } from '@/components/SkeletonShape/SkeletonShape';
 import styles from './Card.module.scss';
 
-type UserCardSkeletonProps = {
+type CardSkeletonProps = {
   className?: string;
 };
 
-export const UserCardSkeleton: React.FunctionComponent<
-  UserCardSkeletonProps
-> = ({ className }) => (
+export const CardSkeleton: React.FunctionComponent<CardSkeletonProps> = ({
+  className,
+}) => (
   <div className={clsx(styles.card, className)}>
     <SkeletonShape className={styles.paragraph} width="30%" />
     <SkeletonShape className={styles.paragraph} width="80%" />
@@ -19,14 +19,14 @@ export const UserCardSkeleton: React.FunctionComponent<
   </div>
 );
 
-type UserCardProps = {
+type CardProps = {
   id: string;
   name: string;
   city: string;
   company: string;
 };
 
-export const UserCard: React.FunctionComponent<UserCardProps> = React.memo(
+export const Card: React.FunctionComponent<CardProps> = React.memo(
   ({ id, name, city, company }) => (
     <article className={styles.card}>
       <p className={styles.paragraph}>
@@ -48,4 +48,4 @@ export const UserCard: React.FunctionComponent<UserCardProps> = React.memo(
   ),
 );
 
-UserCard.displayName = 'UserCard';
+Card.displayName = 'UserCard';
